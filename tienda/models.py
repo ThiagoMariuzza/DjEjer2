@@ -11,7 +11,7 @@ class Ciudad(models.Model):
     Nombre = models.CharField(max_length=30)
 
 class Cliente(models.Model):
-    RUT = models.AutoField(primary_key=True)
+    RUT_C = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=30)
     Telefono = models.CharField(max_length=30)
     Calle = models.CharField(max_length=30)
@@ -24,6 +24,30 @@ class Categoria(models.Model):
     Nombre = models.CharField(max_length=30)
     Descripcion = models.CharField(max_length=50)
 
+class Proveedor(models.Model):
+    RUT_P = models.AutoField(primary_key=True)
+    Nombre = models.CharField(max_length=30)
+    Telefono = models.CharField(max_length=30)
+    Web = models.CharField(max_length=30)
+    Calle = models.CharField(max_length=30)
+    Numero = models.IntegerField()
+    Ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
+    Comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
 
+class Producto(models.Model):
+    id_producto = models.AutoField(primary_key=True)
+    Nombre = models.CharField(max_length=30)
+    Precio = models.IntegerField()
+    Stock = models.IntegerField()
+    RUT_P = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    id_categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+
+class Ventas(models.Model):
+    id_venta = models.AutoField(primary_key=True)
+    Fecha = models.DateField()
+    RUT_C = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    Descuento = models.IntegerField()
+            
     #def _str_(self):
     #    return "Autor: " + str(self.Codigo) + " " + str(self.Nombre)
