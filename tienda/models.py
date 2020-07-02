@@ -19,6 +19,9 @@ class Cliente(models.Model):
     Ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
     Comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.Nombre
+
 class Categoria(models.Model):
     id_categoria = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=30)
@@ -54,8 +57,7 @@ class Ventas(models.Model):
     id_venta = models.AutoField(primary_key=True)
     Fecha = models.DateField()
     RUT_C = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    Descuento = models.IntegerField()
+    Descuento = models.BooleanField()
     id_detalle = models.ForeignKey(Detelles_Venta, on_delete=models.CASCADE, default = None)
-            
-    #def _str_(self):
-    #    return "Autor: " + str(self.Codigo) + " " + str(self.Nombre)
+
+    
