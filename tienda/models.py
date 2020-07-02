@@ -36,6 +36,7 @@ class Proveedor(models.Model):
     Numero = models.IntegerField()
     Ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
     Comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
+    
 
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True, default = None)

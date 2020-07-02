@@ -7,8 +7,16 @@ class ProductoInline(admin.TabularInline):
 
 class ClienteAdmin(admin.ModelAdmin):
     list_display = ['RUT_C', 'Nombre', 'Telefono']
+    search_fields = ['Nombre','Telefono']
+
+class ProveedorAdmin(admin.ModelAdmin):
+    list_display = ('RUT_P','Nombre','Web')
+    list_display_links = ('RUT_P','Nombre','Web')
+    list_filter = ('Nombre','RUT_P')
+    inlines = [ProductoInline,]
 
 class ProductoAdmin(admin.ModelAdmin):
+    
     fieldsets = ( 
         ('Descripción', {
             'fields': ('Nombre',)#no me permite id_producto
@@ -17,13 +25,6 @@ class ProductoAdmin(admin.ModelAdmin):
             'fields': ('Precio','Stock')
         }),
     )
-
-class ProveedorAdmin(admin.ModelAdmin):
-    list_display = ('RUT_P','Nombre','Web')
-    list_display_links = ('RUT_P','Nombre','Web')
-    list_filter = ('Nombre','RUT_P')
-    search_fields = ['Nombre','RUT_P']
-    inlines = [ProductoInline,]
 
 class VentaAdmin(admin.ModelAdmin):
     list_display = ('Fecha','Descuento','RUT_C')
