@@ -35,19 +35,27 @@ class Proveedor(models.Model):
     Comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
 
 class Producto(models.Model):
-    id_producto = models.AutoField(primary_key=True)
+    id_producto = models.AutoField(primary_key=True, default = None)
     Nombre = models.CharField(max_length=30)
     Precio = models.IntegerField()
     Stock = models.IntegerField()
     RUT_P = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     id_categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
+class Detelles_Venta(models.Model):
+    id_detalle = models.AutoField(primary_key=True, default = None)
+    cantidad = models.IntegerField()
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+
+    def _str_(self):
+        return "Detalles: " + str(self.id_detalle) + " " + str(self.cantidad)
+
 class Ventas(models.Model):
     id_venta = models.AutoField(primary_key=True)
     Fecha = models.DateField()
     RUT_C = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     Descuento = models.IntegerField()
+    id_detalle = models.ForeignKey(Detelles_Venta, on_delete=models.CASCADE, default = None)
             
     #def _str_(self):
     #    return "Autor: " + str(self.Codigo) + " " + str(self.Nombre)
